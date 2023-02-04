@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 17:56:22 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/01/28 18:15:01 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/04 18:21:36 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,21 @@ void	check_path(char **path, t_cmd_line *cmd)
 
 int	check_command(char **path, char *cmd)
 {
-	int	i;
+	int		i;
+	char	*a;
 
 	if (access(cmd, F_OK) != -1)
 		return (1);
 	i = 0;
 	while (path[i])
 	{
-		if (access(ft_strjoin(path[i], cmd), F_OK) != -1)
+		a = ft_strjoin(path[i], cmd);
+		if (access(a, F_OK) != -1)
+		{
+			free(a);
 			return (1);
+		}
+		free(a);
 		i++;
 	}
 	return (0);

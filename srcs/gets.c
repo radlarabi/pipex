@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 17:58:02 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/01/28 18:15:27 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/04 18:30:01 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,10 @@ char	**get_path(char **ev)
 		i++;
 	}
 	return (path);
+}
+
+void	print_error(char *a)
+{
+	perror(a);
+	exit(1);
 }
