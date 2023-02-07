@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:35:27 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/04 19:42:07 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/06 18:24:55 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cmd_not_found(char **av, int i)
 	ft_putstr("command not found: ");
 	ft_putstr(av[i]);
 	ft_putstr("\n");
-	exit(1);
+	exit(EXIT_FAILURE);
 }
 
 t_cmd_line	*init_args(char **av)
@@ -53,12 +53,16 @@ void	main_free(char **path, t_cmd_line *cmd)
 	free(cmd);
 }
 
-void	pipex(t_cmd_line *cmd, char **path, int in, int out)
+void	pipex(t_cmd_line *cmd, char **path)
 {
 	int	fd[2];
 	int	id;
 	int	id2;
+	int	in;
+	int	out;
 
+	in = 0;
+	out = 0;
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -68,15 +72,23 @@ void	pipex(t_cmd_line *cmd, char **path, int in, int out)
 	id2 = fork_2(cmd, path, out, fd);
 	close(fd[1]);
 	close(fd[0]);
-	waitpid(id, 0, 0);
-	waitpid(id2, 0, 0);
+	pid_t w1 = waitpid(id2, 0, 0);
+	if (w1 == -1)
+	{
+		perror("waitipd");
+		exit(1);
+	}
+	pid_t w2 = waitpid(id, 0, 0);
+	if (w2 == -1)
+	{
+		perror("waitipd");
+		exit(1);
+	}
 }
 
 int	main(int ac, char **av, char **ev)
 {
 	t_cmd_line	*cmd;
-	int			in;
-	int			out = 0;
 	char		**path;
 
 	if (ac != 5)
@@ -86,10 +98,8 @@ int	main(int ac, char **av, char **ev)
 		exit(1);
 	}
 	cmd = init_args(av);
-	in = open(cmd->infile, O_RDONLY);
-	// out = open(cmd->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	path = get_path(ev);
-	pipex(cmd, path, in, out);
+	pipex(cmd, path);
 	main_free(path, cmd);
 	return (0);
 }

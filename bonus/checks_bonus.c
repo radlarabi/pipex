@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gets.c                                             :+:      :+:    :+:   */
+/*   checks_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/28 17:58:02 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/06 17:56:49 by rlarabi          ###   ########.fr       */
+/*   Created: 2023/01/28 17:56:22 by rlarabi           #+#    #+#             */
+/*   Updated: 2023/02/06 20:24:32 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
-char	*get_command(char **path, char *cmd)
+int	check_command(char **path, char *cmd)
 {
 	int		i;
 	char	*a;
 
 	if (access(cmd, F_OK) != -1)
-		return (cmd);
+		return (1);
 	i = 0;
 	while (path[i])
 	{
@@ -26,37 +26,41 @@ char	*get_command(char **path, char *cmd)
 		if (access(a, F_OK) != -1)
 		{
 			free(a);
-			return (ft_strjoin(path[i], cmd));
+			return (1);
 		}
 		free(a);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
-char	**get_path(char **ev)
+void	check_files(char **av, int in, int out)
 {
-	int		i;
-	char	**path;
-	char	**temp;
-	char	*a;
+	if (in == -1)
+		print_error(av[1]);
+	if (out == -1)
+		print_error(av[4]);
+}
 
-	temp = ft_split(ev[6], '=');
-	path = ft_split(temp[1], ':');
-	free_2d_table(temp);
+int	strlen_2d(char **a)
+{
+	int	i;
+
 	i = 0;
-	while (path[i])
+	while (a[i])
+		i++;
+	return (i);
+}
+
+void	free_2d_table(char **t)
+{
+	int	i;
+
+	i = 0;
+	while (t[i])
 	{
-		a = path[i];
-		path[i] = ft_strjoin(a, "/");
-		free(a);
+		free(t[i]);
 		i++;
 	}
-	return (path);
-}
-
-void	print_error(char *a)
-{
-	perror(a);
-	exit(1);
+	free(t);
 }
