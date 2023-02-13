@@ -23,6 +23,7 @@ typedef struct s_cmd_line
 	int		num_cmds;
 	int		num_pipes;
 	char	**av;
+	char	**ev;
 	char	**cmds;
 	char	**path;
 }			t_cmd_line;
