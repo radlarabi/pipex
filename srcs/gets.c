@@ -34,6 +34,21 @@ char	*get_command(char **path, char *cmd)
 	return (NULL);
 }
 
+int *search_path(char **ev)
+{
+    int i;
+    i = 0;
+    while(ev[i])
+    {
+        if (strncmp(ev[i], "PATH", 4) == 0)
+        {
+            return ev[i];
+        }
+        i++;
+    }
+    return (NULL);
+}
+
 char	**get_path(char **ev)
 {
 	int		i;
@@ -41,7 +56,7 @@ char	**get_path(char **ev)
 	char	**temp;
 	char	*a;
 
-	temp = ft_split(ev[6], '=');
+	temp = ft_split(search_path(ev), '=');
 	path = ft_split(temp[1], ':');
 	free_2d_table(temp);
 	i = 0;

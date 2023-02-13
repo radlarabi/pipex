@@ -25,7 +25,7 @@ SRCS_B = 	bonus/main_bonus.c \
 		libft/ft_substr.c \
 		libft/ft_putstr.c \
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 NAME = pipex
 O_SRCS = $(SRCS:%.c=%.o)
 O_SRCS_B = $(SRCS_B:%.c=%.o)
