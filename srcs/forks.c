@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:26:59 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/06 18:24:24 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/13 18:46:10 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	fork_1(t_cmd_line *cmd, char **path, int in, int *fd)
 		close(fd[0]);
 		close(fd[1]);
 		close(in);
-		execve(get_command(path, cmd->cmd1[0]), cmd->cmd1, NULL);
+		execve(get_command(path, cmd->cmd1[0]), cmd->cmd1, cmd->ev);
 		print_error("execve");
 	}
 	else if (id == -1)
@@ -54,7 +54,7 @@ int	fork_2(t_cmd_line *cmd, char **path, int out, int *fd)
 		close(fd[0]);
 		close(fd[1]);
 		close(out);
-		execve(get_command(path, cmd->cmd2[0]), cmd->cmd2, NULL);
+		execve(get_command(path, cmd->cmd2[0]), cmd->cmd2, cmd->ev);
 		print_error("execve");
 	}
 	else if (id2 == -1)

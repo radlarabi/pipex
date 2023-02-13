@@ -14,6 +14,7 @@ SRCS = 	srcs/main.c \
 SRCS_B = 	bonus/main_bonus.c \
 		bonus/checks_bonus.c \
 		bonus/forks_bonus.c \
+		bonus/utiles1_bonus.c \
 		bonus/gets_bonus.c \
 		libft/ft_split.c \
 		libft/ft_strdup.c \

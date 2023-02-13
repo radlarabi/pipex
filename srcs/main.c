@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:35:27 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/06 18:24:55 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/13 18:45:05 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	cmd_not_found(char **av, int i)
 	exit(EXIT_FAILURE);
 }
 
-t_cmd_line	*init_args(char **av)
+t_cmd_line	*init_args(char **av, char **ev)
 {
 	t_cmd_line	*cmd;
 
@@ -37,6 +37,7 @@ t_cmd_line	*init_args(char **av)
 		cmd->c2 = 1;
 	else
 		cmd->c2 = 0;
+	cmd->ev = ev;
 	cmd->av = av;
 	cmd->cmd1 = ft_split(av[2], ' ');
 	cmd->cmd2 = ft_split(av[3], ' ');
@@ -64,26 +65,13 @@ void	pipex(t_cmd_line *cmd, char **path)
 	in = 0;
 	out = 0;
 	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		exit(1);
-	}
+		print_error("pipe");
 	id = fork_1(cmd, path, in, fd);
 	id2 = fork_2(cmd, path, out, fd);
 	close(fd[1]);
 	close(fd[0]);
-	pid_t w1 = waitpid(id2, 0, 0);
-	if (w1 == -1)
-	{
-		perror("waitipd");
-		exit(1);
-	}
-	pid_t w2 = waitpid(id, 0, 0);
-	if (w2 == -1)
-	{
-		perror("waitipd");
-		exit(1);
-	}
+	waitpid(id2, 0, 0);
+	waitpid(id, 0, 0);
 }
 
 int	main(int ac, char **av, char **ev)
@@ -97,7 +85,7 @@ int	main(int ac, char **av, char **ev)
 			./pipex infile cmd1 cmd2 outfile\n");
 		exit(1);
 	}
-	cmd = init_args(av);
+	cmd = init_args(av, ev);
 	path = get_path(ev);
 	pipex(cmd, path);
 	main_free(path, cmd);

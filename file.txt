@@ -1,8 +1,0 @@
-SRCS = 	srcs/main.c \
-		srcs/checks.c \
-		srcs/gets.c \
-rjoin.c \
-		libft/ft_strlen.c \
-		libft/ft_strncmp.c \
-		libft/ft_strnstr.c \
-		libft/ft_substr.c \

@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 17:58:02 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/06 17:21:17 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/12 21:28:18 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,22 @@ char	**get_path(char **ev)
 {
 	int		i;
 	char	**path;
-	char	**temp;
 	char	*a;
 
-	temp = ft_split(ev[6], '=');
-	path = ft_split(temp[1], ':');
-	free_2d_table(temp);
+	if (!ev)
+	{
+		write(2, "Envirement do not exist\n", 24);
+		exit(1);
+	}
+	i = 0;
+	while (ev[i] && ft_strncmp(ev[i], "PATH", 4) != 0)
+	{
+		fprintf(stderr, "%s\n", ev[i]);
+		i++;
+	}
+	i++;
+	// exit(0);
+	path = ft_split(ev[i + 5], ':');
 	i = 0;
 	while (path[i])
 	{
