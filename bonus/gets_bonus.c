@@ -34,26 +34,31 @@ char	*get_command(char **path, char *cmd)
 	return (NULL);
 }
 
+int *search_path(char **ev)
+{
+    int i;
+    i = 0;
+    while(ev[i])
+    {
+        if (strncmp(ev[i], "PATH", 4) == 0)
+        {
+            return ev[i];
+        }
+        i++;
+    }
+    return (NULL);
+}
+
 char	**get_path(char **ev)
 {
 	int		i;
 	char	**path;
+	char	**temp;
 	char	*a;
 
-	if (!ev)
-	{
-		write(2, "Envirement do not exist\n", 24);
-		exit(1);
-	}
-	i = 0;
-	while (ev[i] && ft_strncmp(ev[i], "PATH", 4) != 0)
-	{
-		fprintf(stderr, "%s\n", ev[i]);
-		i++;
-	}
-	i++;
-	// exit(0);
-	path = ft_split(ev[i + 5], ':');
+	temp = ft_split(search_path(ev), '=');
+	path = ft_split(temp[1], ':');
+	free_2d_table(temp);
 	i = 0;
 	while (path[i])
 	{

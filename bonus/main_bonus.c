@@ -28,6 +28,7 @@ void	normal_init(int ac, char **av, t_cmd_line *cmd, char **ev)
 	cmd->num_cmds = ac - 3;
 	cmd->num_pipes = ac - 4;
 	cmd->av = av;
+	cmd->ev = ev;
 	cmd->cmds = malloc(sizeof(char *) * (cmd->num_cmds + 1));
 	if (!cmd->cmds)
 		exit(1);

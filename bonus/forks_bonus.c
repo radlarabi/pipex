@@ -28,7 +28,7 @@ void	child(t_cmd_line *cmd, int i, int **pipefd, char **command)
 	in_pipe(cmd, i, pipefd);
 	out_pipe(cmd, i, pipefd);
 	close_pipes(cmd, pipefd);
-	execve(get_command(cmd->path, command[0]), command, NULL);
+	execve(get_command(cmd->path, command[0]), command, cmd->ev);
 	print_error("execve");
 }
 

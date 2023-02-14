@@ -29,14 +29,14 @@ t_cmd_line	*init_args(char **av, char **ev)
 		return (NULL);
 	cmd->infile = ft_strdup(av[1]);
 	cmd->outfile = ft_strdup(av[4]);
-	if (av[2][0] == ' ')
-		cmd->c1 = 1;
-	else
-		cmd->c1 = 0;
-	if (av[3][0] == ' ')
-		cmd->c2 = 1;
-	else
-		cmd->c2 = 0;
+	// if (av[2][0] == ' ')
+	// 	cmd->c1 = 1;
+	// else
+	// 	cmd->c1 = 0;
+	// if (av[3][0] == ' ')
+	// 	cmd->c2 = 1;
+	// else
+	// 	cmd->c2 = 0;
 	cmd->ev = ev;
 	cmd->av = av;
 	cmd->cmd1 = ft_split(av[2], ' ');

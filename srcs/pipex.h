@@ -24,8 +24,6 @@ typedef struct s_cmd_line
 	char	**cmd2;
 	char	**av;
 	char	**ev;
-	int		c1;
-	int		c2;
 }			t_cmd_line;
 
 char		*get_command(char **path, char *cmd);
