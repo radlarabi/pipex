@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:26:59 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/12 16:37:11 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:36:30 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	out_pipe(t_cmd_line *cmd, int i, int **pipefd)
 
 void	child(t_cmd_line *cmd, int i, int **pipefd, char **command)
 {
-	if (!check_command(cmd->path, command[0])
-		|| cmd->cmds[i][0] == ' ')
+	if (!check_command(cmd->path, command[0]) || cmd->cmds[i][0] == ' ')
 		cmd_not_found(cmd->av[i + 2]);
 	in_pipe(cmd, i, pipefd);
 	out_pipe(cmd, i, pipefd);

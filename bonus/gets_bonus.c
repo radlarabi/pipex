@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 17:58:02 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/12 21:28:18 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:36:26 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,18 @@ char	*get_command(char **path, char *cmd)
 	return (NULL);
 }
 
-int *search_path(char **ev)
+char	*search_path(char **ev)
 {
-    int i;
-    i = 0;
-    while(ev[i])
-    {
-        if (strncmp(ev[i], "PATH", 4) == 0)
-        {
-            return ev[i];
-        }
-        i++;
-    }
-    return (NULL);
+	int	i;
+
+	i = 0;
+	while (ev[i])
+	{
+		if (!ft_strncmp(ev[i], "PATH", 4))
+			return (ev[i]);
+		i++;
+	}
+	return (NULL);
 }
 
 char	**get_path(char **ev)
@@ -56,6 +55,11 @@ char	**get_path(char **ev)
 	char	**temp;
 	char	*a;
 
+	if (!ev[0])
+	{
+		write(2, "PATH not found\n", 15);
+		exit(1);
+	}
 	temp = ft_split(search_path(ev), '=');
 	path = ft_split(temp[1], ':');
 	free_2d_table(temp);
