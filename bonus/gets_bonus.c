@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 17:58:02 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/14 14:36:26 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/14 20:46:37 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**get_path(char **ev)
 	char	**temp;
 	char	*a;
 
-	if (!ev[0])
+	if (!ev[0] || !search_path(ev))
 	{
 		write(2, "PATH not found\n", 15);
 		exit(1);

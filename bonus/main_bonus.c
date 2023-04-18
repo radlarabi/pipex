@@ -6,7 +6,7 @@
 /*   By: rlarabi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 18:35:27 by rlarabi           #+#    #+#             */
-/*   Updated: 2023/02/14 14:36:24 by rlarabi          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:09:31 by rlarabi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,5 @@ int	main(int ac, char **av, char **ev)
 	cmd = init_args(ac, av, ev);
 	pipex(cmd);
 	main_free(cmd);
-	while (1)
-		;
 	return (0);
 }
